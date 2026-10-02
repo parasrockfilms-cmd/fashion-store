@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fashion Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F8FA;--ink:#12161C;--mute:#5d6672;--accent:#0E5A5A;--line:#E3E6EA;--card:#fff;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font:16px/1.6 "DM Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;line-height:1.1}
+h1{font-size:clamp(2.6rem,7vw,5.2rem)}h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:auto;padding:0 20px}
+section{padding:56px 0}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:500;padding:13px 26px;border-radius:99px;background:var(--ink);color:#fff;transition:.2s}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.wa{background:#1fa855}.btn.wa:hover{background:#178a45}
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(247,248,250,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;height:68px}
+.logo{font-family:"DM Serif Display",serif;font-size:1.6rem;margin-right:auto}
+nav{display:flex;gap:22px}
+nav a{font-weight:500;color:var(--mute);padding:4px 0;border-bottom:2px solid transparent}
+nav a:hover,nav a.on{color:var(--ink);border-color:var(--accent)}
+.search{display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:99px;padding:0 14px}
+.search input{border:0;outline:0;background:none;font:inherit;padding:9px 6px;width:160px}
+.icon{background:none;border:0;cursor:pointer;font-size:1.3rem;position:relative;padding:6px}
+.badge{position:absolute;top:-2px;right:-4px;background:var(--accent);color:#fff;font-size:.7rem;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center}
+#menuBtn{display:none}
+@media(max-width:900px){
+ #menuBtn{display:block}
+ nav{position:fixed;inset:68px 0 auto 0;background:var(--bg);flex-direction:column;gap:0;padding:8px 20px 20px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:.3s;z-index:-1}
+ nav.open{transform:none}
+ nav a{padding:13px 0;border-bottom:1px solid var(--line)}
+ .search input{width:90px}
+}
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:48px 0 40px}
+.hero p{color:var(--mute);max-width:46ch;margin:18px 0 28px;font-size:1.1rem}
+.hero .acts{display:flex;gap:12px;flex-wrap:wrap}
+.collage{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.collage .t{border-radius:var(--r);aspect-ratio:3/4;display:grid;place-items:center;font-size:4rem;overflow:hidden;animation:rise .8s both cubic-bezier(.2,.7,.2,1)}
+.collage .t:nth-child(2){margin-top:40px;animation-delay:.15s}.collage .t:nth-child(3){margin-top:-40px;animation-delay:.3s}.collage .t:nth-child(4){animation-delay:.45s}
+.collage img,.ph img{width:100%;height:100%;object-fit:cover}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.collage .t:nth-child(n){margin-top:0}.collage{grid-template-columns:repeat(4,1fr)}.collage .t{font-size:2rem}}
+/* sections */
+.head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:26px;flex-wrap:wrap}
+.head p{color:var(--mute)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cat{border-radius:var(--r);padding:34px 26px;min-height:190px;display:flex;flex-direction:column;justify-content:end;transition:.25s}
+.cat:hover{transform:translateY(-4px)}
+.cat h3{font-size:1.8rem}.cat span{color:var(--mute);font-size:.95rem}
+@media(max-width:700px){.cats{grid-template-columns:1fr}.cat{min-height:120px}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+.card{background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.ph{aspect-ratio:4/5;display:grid;place-items:center;font-size:4.5rem;overflow:hidden;position:relative}
+.ph img{transition:transform .5s}.card:hover .ph img{transform:scale(1.05)}
+.tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-size:.75rem;padding:3px 10px;border-radius:99px}
+.info{padding:14px 16px 6px}.info h3{font:500 1rem "DM Sans";}
+.price{font-weight:700;color:var(--accent)}
+.card .btn{margin:10px 16px 16px;padding:10px;font-size:.92rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{border:1px solid var(--line);background:#fff;padding:8px 18px;border-radius:99px;cursor:pointer;font:inherit}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.empty{padding:50px 0;color:var(--mute);text-align:center}
+/* product detail */
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:44px;padding:40px 0}
+.detail .ph{border-radius:var(--r);font-size:8rem}
+.pr{margin:6px 0 14px}.pr .price{font-size:1.7rem}
+.sizes{display:flex;gap:8px;margin:16px 0 22px}
+.sizes button{width:48px;height:44px;border:1px solid var(--line);background:#fff;border-radius:10px;cursor:pointer;font:inherit}
+.sizes button.on{background:var(--ink);color:#fff}
+.detail .acts{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:800px){.detail{grid-template-columns:1fr}}
+/* info pages */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:48px 0}
+.two p{color:var(--mute);margin-bottom:14px}
+.list{list-style:none}.list li{padding:12px 0;border-bottom:1px solid var(--line)}
+.list b{display:block;font-size:.85rem;color:var(--mute);font-weight:500}
+form{display:grid;gap:12px}
+input,textarea{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;width:100%}
+iframe{width:100%;height:380px;border:0;border-radius:var(--r)}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.strip{background:var(--ink);color:#fff;border-radius:var(--r);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.strip .btn{background:#fff;color:var(--ink)}
+/* cart */
+#shade{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.3s;z-index:90}
+#cart{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#fff;z-index:100;transform:translateX(100%);transition:.35s;display:flex;flex-direction:column}
+body.cartopen #cart{transform:none}body.cartopen #shade{opacity:1;pointer-events:auto}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+#items{flex:1;overflow:auto;padding:8px 20px}
+.it{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.it .th{width:56px;height:68px;border-radius:8px;display:grid;place-items:center;font-size:1.6rem;overflow:hidden;flex:none}
+.it .th img{width:100%;height:100%;object-fit:cover}
+.it div.m{flex:1;font-size:.92rem}.it small{color:var(--mute)}
+.q{display:flex;align-items:center;gap:8px}
+.q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer}
+.cf{padding:18px 20px;border-top:1px solid var(--line)}
+.cf .tot{display:flex;justify-content:space-between;font-weight:700;margin-bottom:12px}
+.cf .btn{width:100%;text-align:center}
+/* floating */
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:#1fa855;color:#fff;display:grid;place-items:center;font-size:1.8rem;box-shadow:0 8px 24px rgba(31,168,85,.4)}
+#toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 20px;border-radius:99px;opacity:0;transition:.3s;z-index:120;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--mute);font-size:.92rem;margin-top:30px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sil{width:50%;color:var(--ink);opacity:.45}
+.card{transition:box-shadow .25s,transform .25s}.card:hover{box-shadow:0 12px 30px rgba(18,22,28,.1);transform:translateY(-3px)}
+.tag.sale{background:#B3261E}.tag.oos{background:#6b7280}.card.out .ph{opacity:.6}
+s{color:var(--mute);font-weight:400;font-size:.88rem}.off{color:#B3261E;font-size:.8rem;font-weight:500}
+.btn:disabled{background:#c9ced4;color:#fff;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap bar">
+  <a class="logo" href="#/home" id="logo"></a>
+  <nav id="nav">
+    <a href="#/home" data-p="home">Home</a>
+    <a href="#/new" data-p="new">New Arrivals</a>
+    <a href="#/men" data-p="men">Men</a>
+    <a href="#/women" data-p="women">Women</a>
+    <a href="#/kids" data-p="kids">Kids</a>
+    <a href="#/shop" data-p="shop">All Products</a>
+    <a href="#/about" data-p="about">About</a>
+    <a href="#/contact" data-p="contact">Contact</a>
+    <a href="#/location" data-p="location">Shop Location</a>
+  </nav>
+  <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="Search" aria-label="Search products"></label>
+  <button class="icon" id="cartBtn" aria-label="Open cart">🛍<span class="badge" id="count">0</span></button>
+  <button class="icon" id="menuBtn" aria-label="Menu">☰</button>
+</div></header>
+
+<main id="app"></main>
+
+<footer><div class="wrap"><span id="fname"></span><span id="fcontact"></span></div></footer>
+
+<div id="shade"></div>
+<aside id="cart" aria-label="Shopping cart">
+  <div class="ch"><h3>Your cart</h3><button class="icon" id="closeCart" aria-label="Close cart">✕</button></div>
+  <div id="items"></div>
+  <div class="cf"><div class="tot"><span>Total</span><span id="total"></span></div><a class="btn wa" id="orderAll" target="_blank" rel="noopener">Order on WhatsApp</a></div>
+</aside>
+<a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<div id="toast"></div>
+
+<script>
+/* =====================================================
+   1) SHOP SETTINGS — shop ki saari details sirf yahan badlein
+   ===================================================== */
+const SHOP = {
+  name: "Fashion Store",
+  logo: "",                         // logo file/link, jaise "images/logo.png". Khali = shop ka naam dikhega
+  tagline: "Style jo aap par jachta hai.",
+  intro: "Men, women aur kids ke liye premium aur affordable kapde, ek hi jagah.",
+  whatsapp: "919999999999",         // country code ke saath, + ya space ke bina
+  phone: "+91 99999 99999",         // mobile number
+  email: "hello@fashionstore.com",
+  address: "Shop No. 12, Main Market, Your City, India",
+  mapEmbed: "",                     // Google Maps > Share > Embed a map > iframe ke src="..." ka link yahan paste karein. Khali = address se map
+  mapLink: "",                      // Google Maps ka Share link (Get directions button). Khali = address se
+  openDays: "Monday – Sunday",
+  openTime: "10:00 AM",
+  closeTime: "9:00 PM",
+  instagram: "https://instagram.com/yourshop",
+  currency: "₹",
+  about: [
+    "Fashion Store ek family-run clothing shop hai jahan quality aur sahi daam ek saath milte hain.",
+    "Hum har season ke naye designs laate hain taaki aap roz achhe dikhein aur comfortable rahein."
+  ]
+};
+SHOP.hours = `${SHOP.openDays}: ${SHOP.openTime} – ${SHOP.closeTime}`;
+
+/* =====================================================
+   2) PRODUCTS — naya product: ek { ... } block copy karke badlein
+   name: product ka naam            cat: "men" | "women" | "kids"
+   price: asli price                salePrice: discount price (0 = koi discount nahi)
+   inStock: true = available, false = Out of stock
+   sizes: jitne sizes hain wahi likhein        new: true = New Arrivals me dikhega
+   img: product photo ka link/file, jaise "images/shirt1.jpg". Khali = clothing placeholder dikhega
+   type (sirf placeholder ke liye): "shirt" | "tee" | "dress" | "pants" | "kurti"
+   color: placeholder ka background color
+   ===================================================== */
+const PRODUCTS = [
+  {id:1, name:"Classic White Shirt",   cat:"men",   price:1499, salePrice:1199, inStock:true,  new:true,  img:"", type:"shirt", color:"#E8EEF3", sizes:["S","M","L","XL"], desc:"Soft cotton formal shirt, regular fit. Office aur functions dono ke liye."},
+  {id:2, name:"Slim Fit Denim Jeans",  cat:"men",   price:1999, salePrice:0,    inStock:true,  new:false, img:"", type:"pants", color:"#DCE3EC", sizes:["30","32","34","36"], desc:"Stretch denim jo poora din comfortable rahe."},
+  {id:3, name:"Casual Polo T-Shirt",   cat:"men",   price:899,  salePrice:699,  inStock:true,  new:true,  img:"", type:"tee",   color:"#E4ECE8", sizes:["S","M","L","XL"], desc:"Breathable pique cotton polo."},
+  {id:4, name:"Floral Summer Dress",   cat:"women", price:2499, salePrice:1899, inStock:true,  new:true,  img:"", type:"dress", color:"#F1E4E8", sizes:["S","M","L"], desc:"Halka, flowy dress garmi ke liye."},
+  {id:5, name:"Cotton Straight Kurti", cat:"women", price:1099, salePrice:0,    inStock:true,  new:false, img:"", type:"kurti", color:"#EFE9DD", sizes:["S","M","L","XL"], desc:"Daily wear straight-fit kurti."},
+  {id:6, name:"High-Waist Trousers",   cat:"women", price:1799, salePrice:1499, inStock:false, new:true,  img:"", type:"pants", color:"#E3E3EE", sizes:["S","M","L"], desc:"Office aur outing dono ke liye."},
+  {id:7, name:"Kids Party Frock",      cat:"kids",  price:1199, salePrice:0,    inStock:true,  new:false, img:"", type:"dress", color:"#F4E6D9", sizes:["2-3Y","4-5Y","6-7Y"], desc:"Soft lining wali pretty frock."},
+  {id:8, name:"Kids Graphic Tee",      cat:"kids",  price:599,  salePrice:449,  inStock:true,  new:true,  img:"", type:"tee",   color:"#DDEDE6", sizes:["2-3Y","4-5Y","6-7Y","8-9Y"], desc:"Fun print, skin-friendly cotton."}
+];
+/* ===================== settings khatam ===================== */
+
+const $=s=>document.querySelector(s), app=$("#app");
+const fmt=n=>SHOP.currency+n.toLocaleString("en-IN");
+const wa=msg=>`https://wa.me/${SHOP.whatsapp}?text=${encodeURIComponent(msg)}`;
+const byId=id=>PRODUCTS.find(p=>p.id==id);
+const CATS={men:"Men's Collection",women:"Women's Collection",kids:"Kids Collection"};
+let state={q:"",cat:"all"}, cart=[];
+try{cart=JSON.parse(localStorage.getItem("fs_cart"))||[]}catch(e){}
+
+/* ---------- helpers ---------- */
+const SVG={shirt:'M38 12L14 30L24 46L34 40V120H86V40L96 46L106 30L82 12C78 22 70 26 60 26C50 26 42 22 38 12Z',tee:'M40 14L20 28L28 44L34 40V118H86V40L92 44L100 28L80 14C76 22 68 24 60 24C52 24 44 22 40 14Z',dress:'M46 8H54L60 22L66 8H74L76 50L100 128H20L44 50Z',pants:'M36 10H84L90 128H66L60 50L54 128H30Z',kurti:'M42 10C46 20 54 22 60 22C66 22 74 20 78 10L98 32L88 44L82 38V126H38V38L32 44L22 32Z'};
+const media=p=>p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:`<svg class="sil" viewBox="0 0 120 140" fill="currentColor" aria-hidden="true"><path d="${SVG[p.type]||SVG.tee}"/></svg>`;
+const eff=p=>p.salePrice&&p.salePrice<p.price?p.salePrice:p.price;
+const off=p=>Math.round(100-eff(p)/p.price*100);
+const priceHtml=p=>eff(p)<p.price?`<span class="price">${fmt(eff(p))}</span> <s>${fmt(p.price)}</s> <span class="off">${off(p)}% off</span>`:`<span class="price">${fmt(p.price)}</span>`;
+const card=p=>`<article class="card ${p.inStock?'':'out'}"><a href="#/product/${p.id}"><div class="ph" style="background:${p.color}">${!p.inStock?'<span class="tag oos">Out of stock</span>':eff(p)<p.price?`<span class="tag sale">${off(p)}% off</span>`:p.new?'<span class="tag">New</span>':''}${media(p)}</div>
+<div class="info"><h3>${p.name}</h3><div>${priceHtml(p)}</div></div></a>
+${p.inStock?`<button class="btn" data-add="${p.id}">Add to cart</button>`:`<button class="btn" disabled>Out of stock</button>`}</article>`;
+const grid=l=>l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<p class="empty">Koi product nahi mila. Kuch aur search karein.</p>`;
+const page=(t,s,body)=>`<div class="wrap"><section><div class="head"><div><h2>${t}</h2><p>${s||""}</p></div></div>${body}</section></div>`;
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1800)}
+
+/* ---------- pages ---------- */
+const P={
+home:()=>`<div class="wrap"><div class="hero"><div><h1>${SHOP.tagline}</h1><p>${SHOP.intro}</p>
+<div class="acts"><a class="btn" href="#/new">New Arrivals</a><a class="btn ghost" href="#/shop">Shop all</a></div></div>
+<div class="collage">${PRODUCTS.slice(0,4).map(p=>`<div class="t" style="background:${p.color}">${media(p)}</div>`).join("")}</div></div>
+<section><div class="head"><h2>Shop by category</h2></div><div class="cats">
+<a class="cat" href="#/men" style="background:#DCE3EC"><h3>Men</h3><span>Shirts, jeans, tees</span></a>
+<a class="cat" href="#/women" style="background:#F1E4E8"><h3>Women</h3><span>Dresses, kurtis, trousers</span></a>
+<a class="cat" href="#/kids" style="background:#F4E6D9"><h3>Kids</h3><span>Frocks, tees, sets</span></a></div></section>
+<section><div class="head"><h2>New arrivals</h2><a class="btn ghost" href="#/new">View all</a></div>${grid(PRODUCTS.filter(p=>p.new).slice(0,4))}</section>
+<section><div class="strip"><div><h2>Order seedha WhatsApp par</h2><p>Product chunein, cart bharein, aur ek click me order bhejein.</p></div><a class="btn" target="_blank" rel="noopener" href="${wa('Hello '+SHOP.name+', mujhe order karna hai.')}">Chat now</a></div></section></div>`,
+new:()=>page("New Arrivals","Sabse naye designs",grid(PRODUCTS.filter(p=>p.new))),
+men:()=>page(CATS.men,"Shirts, jeans aur aur bhi",grid(PRODUCTS.filter(p=>p.cat=="men"))),
+women:()=>page(CATS.women,"Dresses, kurtis aur aur bhi",grid(PRODUCTS.filter(p=>p.cat=="women"))),
+kids:()=>page(CATS.kids,"Chhoton ke liye soft aur comfortable",grid(PRODUCTS.filter(p=>p.cat=="kids"))),
+shop:()=>{const q=state.q.toLowerCase();
+ const l=PRODUCTS.filter(p=>(state.cat=="all"||p.cat==state.cat)&&(p.name+" "+p.cat).toLowerCase().includes(q));
+ const chips=["all","men","women","kids"].map(c=>`<button class="chip ${state.cat==c?'on':''}" data-cat="${c}">${c=="all"?"All":c[0].toUpperCase()+c.slice(1)}</button>`).join("");
+ return page("All Products",q?`Search: "${state.q}"`:`${PRODUCTS.length} products`,`<div class="chips">${chips}</div>${grid(l)}`)},
+product:id=>{const p=byId(id);if(!p)return page("Product nahi mila","",`<a class="btn" href="#/shop">Shop par wapas jayein</a>`);
+ return `<div class="wrap"><div class="detail"><div class="ph" style="background:${p.color}">${media(p)}</div><div>
+<a href="#/${p.cat}" style="color:var(--mute)">${CATS[p.cat]}</a><h2 style="margin-top:8px">${p.name}</h2><div class="pr">${priceHtml(p)}</div><p style="color:var(--mute)">${p.desc}</p><p><b>${p.inStock?"Available":"Out of stock"}</b></p>
+<div class="sizes" id="sizes">${p.sizes.map((s,i)=>`<button class="${i?'':'on'}" data-size="${s}">${s}</button>`).join("")}</div>
+<div class="acts">${p.inStock?`<button class="btn" id="addD">Add to cart</button><a class="btn wa" id="orderD" target="_blank" rel="noopener">Order on WhatsApp</a>`:`<button class="btn" disabled>Out of stock</button><a class="btn wa" target="_blank" rel="noopener" href="${wa(`Hello ${SHOP.name}, ${p.name} kab tak available hoga?`)}">Ask availability</a>`}</div></div></div>
+<section><div class="head"><h2>Aapko ye bhi pasand aayega</h2></div>${grid(PRODUCTS.filter(x=>x.cat==p.cat&&x.id!=p.id).slice(0,4))}</section></div>`},
+about:()=>`<div class="wrap"><div class="two"><div><h2>About ${SHOP.name}</h2></div><div>${SHOP.about.map(t=>`<p>${t}</p>`).join("")}</div></div></div>`,
+contact:()=>`<div class="wrap"><div class="two"><div><h2>Contact Us</h2><ul class="list"><li><b>Phone</b>${SHOP.phone}</li><li><b>Email</b>${SHOP.email}</li>${SHOP.instagram?`<li><b>Instagram</b><a href="${SHOP.instagram}" target="_blank" rel="noopener" style="text-decoration:underline">${SHOP.instagram.replace(/^https?:\/\/(www\.)?/,"")}</a></li>`:""}<li><b>Address</b>${SHOP.address}</li><li><b>Timing</b>${SHOP.hours}</li></ul></div>
+<form id="cform"><input name="n" placeholder="Aapka naam" required><textarea name="m" rows="5" placeholder="Aapka message" required></textarea><button class="btn wa" type="submit">Send on WhatsApp</button></form></div></div>`,
+location:()=>`<div class="wrap"><div class="two"><div><h2>Shop Location</h2><ul class="list"><li><b>Address</b>${SHOP.address}</li><li><b>Timing</b>${SHOP.hours}</li></ul><br>
+<a class="btn" target="_blank" rel="noopener" href="${SHOP.mapLink||"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(SHOP.address)}">Get directions</a></div>
+<iframe title="Map" loading="lazy" src="${SHOP.mapEmbed||"https://maps.google.com/maps?q="+encodeURIComponent(SHOP.address)+"&output=embed"}"></iframe></div></div>`
+};
+
+/* ---------- router ---------- */
+function render(){
+ const [pg,arg]=(location.hash.slice(2)||"home").split("/");
+ app.innerHTML=(P[pg]||P.home)(arg);
+ document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.dataset.p==pg));
+ $("#nav").classList.remove("open");window.scrollTo(0,0);
+ if(pg=="product")sizeLinks();
+ document.title=SHOP.name;
+}
+function sizeLinks(){const p=byId(location.hash.split("/")[2]);if(!p||!p.inStock)return;
+ const s=()=>($("#sizes .on")||{}).dataset.size;
+ const u=()=>$("#orderD").href=wa(`Hello ${SHOP.name}, mujhe ye order karna hai:\n${p.name} (Size ${s()}) - ${fmt(eff(p))}`);u();
+ $("#sizes").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#sizes button").forEach(x=>x.classList.remove("on"));b.classList.add("on");u()};
+ $("#addD").onclick=()=>add(p.id,s())}
+
+/* ---------- cart ---------- */
+function add(id,size){const p=byId(id);if(!p.inStock)return toast("Ye product abhi stock me nahi hai");size=size||p.sizes[0];
+ const f=cart.find(i=>i.id==id&&i.size==size);f?f.qty++:cart.push({id:+id,size,qty:1});save();toast("Cart me add ho gaya");}
+function save(){try{localStorage.setItem("fs_cart",JSON.stringify(cart))}catch(e){}drawCart()}
+function drawCart(){
+ cart=cart.filter(i=>byId(i.id)&&byId(i.id).inStock);let tot=0,n=0;
+ $("#items").innerHTML=cart.length?cart.map((i,k)=>{const p=byId(i.id);tot+=eff(p)*i.qty;n+=i.qty;
+  return `<div class="it"><div class="th" style="background:${p.color}">${media(p)}</div><div class="m"><b>${p.name}</b><br><small>Size ${i.size} · ${fmt(eff(p))}</small></div>
+  <div class="q"><button data-q="${k}" data-d="-1" aria-label="Kam karein">−</button>${i.qty}<button data-q="${k}" data-d="1" aria-label="Badhayein">+</button></div></div>`}).join(""):`<p class="empty">Cart khali hai.</p>`;
+ $("#total").textContent=fmt(tot);$("#count").textContent=n;
+ const lines=cart.map(i=>{const p=byId(i.id);return `• ${p.name} (Size ${i.size}) x${i.qty} = ${fmt(eff(p)*i.qty)}`}).join("\n");
+ $("#orderAll").href=wa(`Hello ${SHOP.name}, mujhe ye order karna hai:\n${lines}\nTotal: ${fmt(tot)}`);
+ $("#orderAll").style.display=cart.length?"block":"none";
+}
+const cartOpen=o=>document.body.classList.toggle("cartopen",o);
+
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+ const a=e.target.closest("[data-add]");if(a){add(a.dataset.add);return}
+ const c=e.target.closest("[data-cat]");if(c){state.cat=c.dataset.cat;render();return}
+ const q=e.target.closest("[data-q]");if(q){const i=cart[q.dataset.q];i.qty+=+q.dataset.d;if(i.qty<1)cart.splice(q.dataset.q,1);save()}
+});
+$("#cartBtn").onclick=()=>cartOpen(true);$("#closeCart").onclick=$("#shade").onclick=()=>cartOpen(false);
+$("#menuBtn").onclick=()=>$("#nav").classList.toggle("open");
+$("#q").oninput=e=>{state.q=e.target.value;state.cat="all";location.hash!="#/shop"?location.hash="#/shop":render()};
+document.addEventListener("submit",e=>{if(e.target.id!="cform")return;e.preventDefault();const f=e.target;
+ window.open(wa(`Hello ${SHOP.name}, main ${f.n.value} hoon.\n${f.m.value}`),"_blank")});
+window.addEventListener("hashchange",render);
+
+/* ---------- start ---------- */
+$("#logo").innerHTML=SHOP.logo?`<img src="${SHOP.logo}" alt="${SHOP.name}" style="height:40px;display:block">`:SHOP.name;
+$("#fname").textContent="© "+new Date().getFullYear()+" "+SHOP.name;
+$("#fcontact").innerHTML=`${SHOP.phone} · ${SHOP.email}`+(SHOP.instagram?` · <a href="${SHOP.instagram}" target="_blank" rel="noopener" style="text-decoration:underline">Instagram</a>`:"");
+$("#waFloat").href=wa(`Hello ${SHOP.name}, mujhe kuch poochna hai.`);
+drawCart();render();
+</script>
+</body>
+</html>
